@@ -14,7 +14,7 @@ function addTodo(){
     }
     else{
         const Todo = {
-          id: todoList.length + 1,
+          id: todoList.length,
           title: title,
           content: content,
           date: new Date(),
@@ -25,7 +25,7 @@ function addTodo(){
 }
 function deleteItem(x) {
   todoList.splice(
-    todoList.filter((item) => item.id === x),
+    todoList.findIndex((item) => item.id == x),
     1
   );
   displayTodos();
@@ -49,8 +49,7 @@ function displayTodos(){
         const year = currentDate.getUTCFullYear();
         newdate = year + "/" + month + "/" + day;
 
-        listElement.setAttribute("data-id", item.id);
-        spanDelete.setAttribute("data-id", item.id);
+        
         Object.assign(listElement.style, {
           padding: "15px",
           border: "1px solid #3333",
@@ -58,17 +57,18 @@ function displayTodos(){
           "margin-left": "30px",
           "margin-top": "30px",
           "margin-bottom": "30px",
-          "border-radius": "5px"
+          "border-radius": "15px"
         });
          Object.assign(h2.style, {
            width: "250px"
          });
           Object.assign(spanDelete.style, {
-            //   "margin-top" : "0",
-            // "border-radius": "100%",
+            "border-radius": "50%",
             "background-color": "#3333",
-            float: "right"
-            
+            "font-size" : "20px",
+            padding: "6px",
+            float: "right",
+            cursor: "pointer"
           });
         span.innerHTML = newdate;
         h2.innerHTML = item.title;
@@ -81,13 +81,11 @@ function displayTodos(){
         todoListElement.appendChild(listElement);
 
         
-
+         spanDelete.setAttribute("data-id", item.id);
          spanDelete.addEventListener("click", function (e) {
-           const delId = e.target.getAttribute("data-id");
-           console.log(delId);
-           deleteItem(delId);
+           const idItem = e.target.getAttribute("data-id");
+           deleteItem(idItem);
          });
-         console.log(todoList);
     });
 
 }
