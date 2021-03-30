@@ -2,7 +2,7 @@ const todoList = [];
 const todoListElement = document.querySelector('#myUL')
 document.querySelector('#add_button').addEventListener("click", addTodo);
 
-function addTodo(){
+function addTodo(event){
     const title = document.querySelector('#title').value;
     const content = document.querySelector('#content').value;
     // console.log(title);
@@ -22,6 +22,7 @@ function addTodo(){
         todoList.push(Todo);
         displayTodos();
     }
+    event.preventDefault();
 }
 function deleteItem(x) {
   todoList.splice(
@@ -29,6 +30,7 @@ function deleteItem(x) {
     1
   );
   displayTodos();
+  
 }
 
 
@@ -48,38 +50,22 @@ function displayTodos(){
         const day = currentDate.getUTCDate();
         const year = currentDate.getUTCFullYear();
         newdate = year + "/" + month + "/" + day;
-
+        listElement.setAttribute("class","list-element");
+        h2.setAttribute("class","title");
+        spanDelete.setAttribute("class","btn-delete");
+        span.setAttribute("class","time");
         
-        Object.assign(listElement.style, {
-          padding: "15px",
-          border: "1px solid #3333",
-          width: "400px",
-          "margin-left": "30px",
-          "margin-top": "30px",
-          "margin-bottom": "30px",
-          "border-radius": "15px"
-        });
-         Object.assign(h2.style, {
-           width: "250px"
-         });
-          Object.assign(spanDelete.style, {
-            "border-radius": "50%",
-            "background-color": "#3333",
-            "font-size" : "20px",
-            padding: "6px",
-            float: "right",
-            cursor: "pointer"
-          });
+        
         span.innerHTML = newdate;
         h2.innerHTML = item.title;
         p.innerHTML = item.content;
         spanDelete.innerHTML = "X";
-        listElement.appendChild(spanDelete);
+        // listElement.appendChild(spanDelete);
         listElement.appendChild(h2);
         listElement.appendChild(span);
         listElement.appendChild(p);
         todoListElement.appendChild(listElement);
-
+        todoListElement.appendChild(spanDelete);
         
          spanDelete.setAttribute("data-id", item.id);
          spanDelete.addEventListener("click", function (e) {
@@ -87,5 +73,5 @@ function displayTodos(){
            deleteItem(idItem);
          });
     });
-
+    
 }
