@@ -17,65 +17,96 @@ h1{
 
 #form-input{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
 }
 #title{
-    margin-left: 50px;
-    width: 300px;
     height: 30px;
+    width: 300px;
+    margin-left: 50px;
+    margin-bottom: 12px;
 }
 #content{
-    margin-top: 20px;
-    margin-left: 50px;
-    width: 300px;
     height: 30px;
-    /* margin-top: 20px; */
+    width: 300px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+    margin-top: 12px;
+    margin-right: 135px;
 }
 #add_button{
-    margin-right: 39px; 
-    margin-left: 369px;
-    margin-top: -90px;
-    margin-bottom: 97px;
-    margin-right: 10px;
-    height: 35px;
-    width: 95px;
+    margin-left: 20px;
+    width: 80px;
+    height: 36px;
 }
 
 #error{
     margin: 0px;
-    margin-left: 51px;
+    margin-left: 50px;
     color: red;
-    font-size: 16px;
 }
 #myUL{
-    
-    width: 350px;
-    margin-left: 40px;
+   
 }
 .btn-delete{
-    position: absolute;
-    margin-left: 411px;
-    margin-top: -179px;
+ 
+}
+.btn-delete:hover{
+    
+}
+.list-element{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: baseline;
+    width: 400px;
+    border: .5px solid #333;
+    margin-left: 50px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.id-todo{
+    margin-left: 30px;
+    margin-top: 20px;
     border-radius: 50%;
-    background-color: #3a3a3a;
-    border-radius: 50%;
-    font-size: 21px;
+    background-color: #3f83dd;
     width: 25px;
     height: 25px;
     text-align: center;
-    font-family: sans-serif;
-    opacity: 0;
+    font-size: 22px;
+    padding: 3px;
+}
+
+.title{
+    margin: 0px;
+    margin-left: 10px;
+    width: 200px;
+}
+.time{
+    margin-left:35px;
+}
+.main-content{
+    margin: 0px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 73px;
+    width: 290px;
+}
+.btn-delete{
+    position: absolute;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #333;
     color: white;
+    font-size: 20px;
+    height: 25px;
+    width: 25px;
+    padding: 6px;
+    margin-left: 381px;
+    margin-top: -18px;
+    opacity: 0;
 }
 .btn-delete:hover{
-    opacity: 100;
     cursor: pointer;
-}
-.list-element{
-    margin-bottom: 30px;
-    width: 410px;
-    margin-left: 12px;
-    border: .5px solid #333; 
-    position: relative;
+    opacity: 100;
 }
