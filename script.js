@@ -1,19 +1,40 @@
 const todoList = [];
 const todoListElement = document.querySelector('#myUL')
 const day = new Date();
-const currentDate = [day.getDate(), day.getMonth() + 1, day.getFullYear()].join("/");
+const monthNamesShort = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sept",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+const currentDate = 
+    monthNamesShort[day.getMonth()] + " " +
+    day.getDate()+ "," +
+    day.getFullYear();
+
 document.querySelector("#add_button").addEventListener("click", addTodo);
 
-function addTodo(event){
+function addTodo(event) {
     const title = document.querySelector('#title').value;
     const content = document.querySelector('#content').value;
-    
-    if (title === '' || content === '') {
-        const errorMessage = "please enter valid form";
-        const elementMessage = document.querySelector("#error");
-        elementMessage.innerHTML = errorMessage;
-      } else {
-          const Todo = {
+    const elementMessage = document.querySelector("#error");
+    if (title === '') {
+        const errorMessageTitle = "please enter valid title";
+        elementMessage.innerHTML = errorMessageTitle;
+    } else if(content === '') {
+        const errorMessageContent = "please enter valid content";
+        elementMessage.innerHTML = errorMessageContent;
+    }
+     else {
+        const Todo = {
             id: todoList.length,
             title: title,
             content: content,
@@ -25,19 +46,17 @@ function addTodo(event){
     event.preventDefault();
 }
 function clearMessage() {
-  const elementError = document.querySelector("#error");
-  elementError.innerHTML = "";
+    const elementError = document.querySelector("#error");
+    elementError.innerHTML = "";
 }
 
 function deleteItem(x) {
-  todoList.splice(
-    todoList.filter((item) => item.id === x),
-    1
-  );
-  
-  displayTodos();
+    todoList.splice(
+        todoList.filter((item) => item.id === x),
+        1
+    );
+    displayTodos();
 }
-
 
 function displayTodos(){
     todoListElement.innerHTML = '';
@@ -76,52 +95,51 @@ function displayTodos(){
         todoListElement.appendChild(listElement);
         
          deleteTodo.setAttribute("data-id", item.id);
-         deleteTodo.addEventListener("click", function (e) {
-           const idItem = e.target.getAttribute("data-id");
-           deleteItem(idItem);
-         });
+         deleteTodo.addEventListener("click", (e) => {
+            const idItem = e.target.getAttribute("data-id");
+            deleteItem(idItem);
+        });
     });
     dragItem();
     clearMessage();
 }
 
 const dragItem = () => {
-  const listItem = document.querySelector("#myUL");
-  const elements = listItem.getElementsByClassName("list-element");
-  let currentItem = null;
-  for (let element of elements) {
-      element.addEventListener("dragstart", (e) => {
-      currentItem = element;
-    })
-    element.addEventListener("dragenter", (e) => {
-    })
-    element.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    })
-    element.addEventListener("drop", (e) => {
-      if (element != currentItem) {
-        let currentpos = 0, droppedpos = 0;
-        for (let it = 0 ; it < elements.length ; it++) {
-          if (currentItem == elements[it]) { currentpos = it; }
-          if (element == elements[it]) { droppedpos = it; }
-        }
-        if (currentpos < droppedpos) {
-          element.parentNode.insertBefore(currentItem, element.nextSibling );
-        } else {
-          element.parentNode.insertBefore(currentItem, element);
-        }
-        setId();
-      }
-    });
-    
-  }
+    const listItem = document.querySelector("#myUL");
+    const elements = listItem.getElementsByClassName("list-element");
+    let currentItem = null;
+    for (let element of elements) {
+        element.addEventListener("dragstart", (e) => {
+            currentItem = element;
+        });
+        element.addEventListener("dragenter", (e) => {
+        });
+        element.addEventListener("dragover", (e) => {
+            e.preventDefault();
+        })
+        element.addEventListener("drop", (e) => {
+            if (element != currentItem) {
+                let currentpos = 0, droppedpos = 0;
+            for (let it = 0 ; it < elements.length ; it++) {
+                if (currentItem == elements[it]) { currentpos = it; }
+                if (element == elements[it]) { droppedpos = it; }
+            }
+            if (currentpos < droppedpos) {
+                element.parentNode.insertBefore(currentItem, element.nextSibling );
+            } else {
+                element.parentNode.insertBefore(currentItem, element);
+            }
+            setId();
+            }
+        });
+
+    }
 }
 
 setId = () => {
-  let listIdTodo = document.getElementsByClassName("id-todo");
-  let id = document.querySelector(".id-todo")
-  console.log(listIdTodo);
-  listIdTodo.map((todo) => {
-    console.log("a");
-  })
+    let listIdTodo = document.getElementsByClassName("id-todo");
+    for(let i = 0 ; i <listIdTodo.length ; i++){
+        listIdTodo[i].innerHTML = i + 1;
+    }
+  
 }
