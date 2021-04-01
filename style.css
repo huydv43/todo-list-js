@@ -149,3 +149,8 @@ input:focus{
 .list-element:hover .btn-delete{
     opacity: 75;
 }
+.list-element.hint {
+     background: rgb(56, 167, 89); 
+     opacity: 100;
+}
+.list-element.active { background: #b80d0d; }

@@ -20,9 +20,7 @@ const currentDate =
     day.getDate()+ "," +
     day.getFullYear();
 
-document.querySelector("#add_button").addEventListener("click", addTodo);
-
-function addTodo(event) {
+ addTodo = (event) => {
     const title = document.querySelector('#title').value;
     const content = document.querySelector('#content').value;
     const elementMessage = document.querySelector("#error");
@@ -45,12 +43,13 @@ function addTodo(event) {
         }
     event.preventDefault();
 }
-function clearMessage() {
+document.querySelector("#add_button").addEventListener("click", addTodo);
+clearMessage = () => {
     const elementError = document.querySelector("#error");
     elementError.innerHTML = "";
 }
 
-function deleteItem(x) {
+deleteItem = (x) => {
     todoList.splice(
         todoList.filter((item) => item.id === x),
         1
@@ -58,7 +57,7 @@ function deleteItem(x) {
     displayTodos();
 }
 
-function displayTodos(){
+displayTodos = () => {
     todoListElement.innerHTML = '';
     document.querySelector("#title").value = '';
     document.querySelector("#content").value = '';
@@ -111,11 +110,20 @@ const dragItem = () => {
     for (let element of elements) {
         element.addEventListener("dragstart", (e) => {
             currentItem = element;
+            currentItem.classList.add("hint");
+            
         });
         element.addEventListener("dragenter", (e) => {
+                // element.classList.add("active");
         });
+        element.addEventListener("dragend", () => {
+            element.classList.remove("hint");
+            element.classList.remove("active");
+            
+        })
         element.addEventListener("dragover", (e) => {
             e.preventDefault();
+            element.classList.remove("active");
         })
         element.addEventListener("drop", (e) => {
             if (element != currentItem) {
@@ -129,14 +137,14 @@ const dragItem = () => {
             } else {
                 element.parentNode.insertBefore(currentItem, element);
             }
-            setId();
+            autoSetId();
             }
         });
 
     }
 }
 
-setId = () => {
+autoSetId = () => {
     let listIdTodo = document.getElementsByClassName("id-todo");
     for(let i = 0 ; i <listIdTodo.length ; i++){
         listIdTodo[i].innerHTML = i + 1;
