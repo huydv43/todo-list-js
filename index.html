@@ -5,7 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
     <script src="https://kit.fontawesome.com/29ee0bc57e.js" crossorigin="anonymous">
+    
     </script>
     <title>Todo List App</title>
 </head>
@@ -14,10 +16,11 @@
     <div class="app">
         <h1>ToDo List App</h1>
         <form id="form-input" >
-            <input type="text" id="title" placeholder="Task's title" />
+            <input type="text" id="title" placeholder="Task's title" value="" onfocus="this.value" autocomplete="off"/>
             <button class="addBtn" id="add_button" type="submit">Add Task</button>
             <h5 id="error"></h5>
-            <input type="text" id="content" placeholder="Content" />
+            <input type="text" id="content" placeholder="Content" autocomplete="off" />
+            <h5 id="error-content"></h5>
             
         </form>
         <div id="myUL">

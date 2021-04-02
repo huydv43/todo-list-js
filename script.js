@@ -23,13 +23,19 @@ const currentDate =
  addTodo = (event) => {
     const title = document.querySelector('#title').value;
     const content = document.querySelector('#content').value;
-    const elementMessage = document.querySelector("#error");
-    if (title === '') {
-        const errorMessageTitle = "please enter valid title";
-        elementMessage.innerHTML = errorMessageTitle;
-    } else if(content === '') {
-        const errorMessageContent = "please enter valid content";
-        elementMessage.innerHTML = errorMessageContent;
+    const elementMessageTitle = document.querySelector("#error");
+    const elementMessageContent = document.querySelector("#error-content");
+    const errorMessageTitle = "please enter valid title";
+    const errorMessageContent = "please enter valid content";
+    if (!title && !content) {
+        elementMessageTitle.innerHTML = errorMessageTitle;
+        elementMessageContent.innerHTML = errorMessageContent;
+    } else if(!content) {
+        elementMessageTitle.innerHTML ="";
+        elementMessageContent.innerHTML = errorMessageContent;
+    } else if (!title) {
+        errorMessageContent.innerHTML = "";
+        elementMessageTitle.innerHTML = errorMessageTitle;
     }
      else {
         const Todo = {
@@ -41,13 +47,15 @@ const currentDate =
           todoList.push(Todo);
           displayTodos();
         }
+    document.querySelector('#title').addEventListener("click", () => {
+        elementMessageTitle.innerHTML = "";
+    })
+    document.querySelector('#content').addEventListener("click", () => {
+        elementMessageContent.innerHTML = "";
+    })
     event.preventDefault();
 }
 document.querySelector("#add_button").addEventListener("click", addTodo);
-clearMessage = () => {
-    const elementError = document.querySelector("#error");
-    elementError.innerHTML = "";
-}
 
 deleteItem = (x) => {
     todoList.splice(
@@ -58,14 +66,16 @@ deleteItem = (x) => {
 }
 
 displayTodos = () => {
+    
     todoListElement.innerHTML = '';
     document.querySelector("#title").value = '';
     document.querySelector("#content").value = '';
     todoList.forEach((item) =>{
+        const wrap = document.createElement("div");
         const idTodo = document.createElement("span");
         const listElement = document.createElement("div");
         const timeTodo = document.createElement('span');
-        const deleteTodo = document.createElement('span');
+        const deleteTodo = document.createElement('i');
         const titleTodo = document.createElement('h2');
         const contentTodo = document.createElement('p');
         
@@ -74,24 +84,24 @@ displayTodos = () => {
         listElement.setAttribute("draggable","true");
         titleTodo.setAttribute("class", "main-title");
         contentTodo.setAttribute("class","main-content");
-        deleteTodo.setAttribute("class","btn-delete");
+        deleteTodo.setAttribute("class","fas fa-times-circle");
         timeTodo.setAttribute("class","main-time");
         idTodo.setAttribute("class","id-todo");
+        wrap.setAttribute("class","wrapper");
         const listTodo = document.getElementsByClassName("list-element");
         
         idTodo.innerHTML = listTodo.length + 1;
         timeTodo.innerHTML = currentDate;
         titleTodo.innerHTML = item.title;
         contentTodo.innerHTML = item.content;
-        deleteTodo.innerHTML = "X";
         
         listElement.appendChild(idTodo);
         listElement.appendChild(titleTodo);
         listElement.appendChild(timeTodo);
         listElement.appendChild(deleteTodo);
-        listElement.appendChild(contentTodo); 
-        
-        todoListElement.appendChild(listElement);
+        listElement.appendChild(contentTodo);
+        wrap.appendChild(listElement);
+        todoListElement.appendChild(wrap);
         
          deleteTodo.setAttribute("data-id", item.id);
          deleteTodo.addEventListener("click", (e) => {
@@ -100,12 +110,11 @@ displayTodos = () => {
         });
     });
     dragItem();
-    clearMessage();
 }
 
 const dragItem = () => {
     const listItem = document.querySelector("#myUL");
-    const elements = listItem.getElementsByClassName("list-element");
+    const elements = listItem.getElementsByClassName("wrapper");
     let currentItem = null;
     for (let element of elements) {
         element.addEventListener("dragstart", (e) => {
@@ -118,12 +127,9 @@ const dragItem = () => {
         });
         element.addEventListener("dragend", () => {
             element.classList.remove("hint");
-            element.classList.remove("active");
-            
         })
         element.addEventListener("dragover", (e) => {
             e.preventDefault();
-            element.classList.remove("active");
         })
         element.addEventListener("drop", (e) => {
             if (element != currentItem) {
