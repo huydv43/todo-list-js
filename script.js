@@ -78,7 +78,21 @@ displayTodos = () => {
         const deleteTodo = document.createElement('i');
         const titleTodo = document.createElement('h2');
         const contentTodo = document.createElement('p');
+        // create function
+
+        createElements = () => {
+            var element;
+            var list = "span,span,i,h2,p";
+            const wrap = document.createElement("div");
+            const listElement = document.createElement("div");
+            const j = list.split(',');
+            for (let i = 0 ; i < j.length ; i++) {
+                element = document.createElement(j[i]);
+
+            }
+        }
         
+        //create function
         
         listElement.setAttribute("class","list-element");
         listElement.setAttribute("draggable","true");
