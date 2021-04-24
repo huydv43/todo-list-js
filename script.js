@@ -3,7 +3,7 @@ const todoListElement = document.querySelector('#myUL')
 const day = new Date();
 const monthNamesShort = [
   "Jan",
-  "Feb",
+  "Fe",
   "Mar",
   "Apr",
   "May",
